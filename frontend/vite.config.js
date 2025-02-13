@@ -11,7 +11,16 @@ export default defineConfig({
     },
   },
   build: {
-    outDir: "dist", // Explicitly define the output directory
-    chunkSizeWarningLimit: 1000,
+    outDir: "dist",  // Ensure output directory is correctly set
+    chunkSizeWarningLimit: 1000, // Suppress warnings (optional)
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes("node_modules")) {
+            return "vendor"; // Separate vendor files
+          }
+        },
+      },
+    },
   },
 });
